@@ -15,6 +15,12 @@ Window::Window(brightray::BrowserContext* browser_context)
 }
 
 Window::~Window() {
+  base::MessageLoop::current()->Quit();
+
+  auto web_contents = inspectable_web_contents_->GetWebContents();
+  web_contents->Close();
+
+  inspectable_web_contents_.reset();
 }
 
 void Window::WindowReady() {
